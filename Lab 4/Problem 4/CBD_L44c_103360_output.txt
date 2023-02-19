@@ -1,0 +1,196 @@
+# Insert data into database
+load csv with headers from 'file:///electric-vehicle-population-data.csv' as file
+merge (country:Country{name:file.country, city:file.city, state:file.state, postal_code:file.postal_code})
+merge (brand:Brand{name:file.make})
+merge (vehicle:Vehicle{model:file.model, year:file.model_year})
+create (vehicle)-[:EXISTS]->(country)
+create (brand)-[:MAKES]->(vehicle)
+create (country)-[:HAS]->(brand)
+
+#1 Get all vehicles
+match (vehicle:Vehicle)
+return vehicle
+
+{'vehicle': {'year': '2022', 'model': 'RAV4 PRIME'}}
+{'vehicle': {'year': '2013', 'model': 'VOLT'}}   
+{'vehicle': {'year': '2011', 'model': 'LEAF'}}   
+{'vehicle': {'year': '2017', 'model': 'BOLT EV'}}
+{'vehicle': {'year': '2019', 'model': 'FUSION'}} 
+{'vehicle': {'year': '2018', 'model': 'MODEL 3'}}
+{'vehicle': {'year': '2013', 'model': 'LEAF'}}   
+{'vehicle': {'year': '2016', 'model': 'LEAF'}}
+{'vehicle': {'year': '2016', 'model': 'SOUL'}}
+{'vehicle': {'year': '2020', 'model': 'Q5 E'}}
+{'vehicle': {'year': '2020', 'model': 'MODEL X'}}
+(...)
+
+#2 Get all vehicles from the country ("King")
+match (country:Country)-[:HAS]->(brand:Brand)-[:MAKES]->(vehicle:Vehicle)
+where country.name = '{country}'
+return vehicle
+
+{'vehicle': {'year': '2015', 'model': 'E-GOLF'}}
+{'vehicle': {'year': '2018', 'model': 'E-GOLF'}}
+{'vehicle': {'year': '2022', 'model': 'ID.4'}}
+{'vehicle': {'year': '2016', 'model': 'E-GOLF'}}
+{'vehicle': {'year': '2022', 'model': 'ID.4'}}
+{'vehicle': {'year': '2021', 'model': 'ID.4'}}
+{'vehicle': {'year': '2016', 'model': 'E-GOLF'}}
+{'vehicle': {'year': '2021', 'model': 'ID.4'}}
+{'vehicle': {'year': '2019', 'model': 'E-GOLF'}}
+{'vehicle': {'year': '2016', 'model': 'E-GOLF'}}
+{'vehicle': {'year': '2021', 'model': 'MODEL Y'}}
+(...)
+
+#3 Get the 20 first vehicles maked by brand ("TESLA")
+match (brand:Brand)-[:MAKES]->(vehicle:Vehicle)
+where brand.name = '{brand}'
+return vehicle
+limit 20
+
+{'vehicle': {'year': '2023', 'model': 'MODEL Y'}}
+{'vehicle': {'year': '2020', 'model': 'MODEL 3'}}
+{'vehicle': {'year': '2022', 'model': 'MODEL Y'}}
+{'vehicle': {'year': '2022', 'model': 'MODEL Y'}}
+{'vehicle': {'year': '2018', 'model': 'MODEL 3'}}
+{'vehicle': {'year': '2021', 'model': 'MODEL Y'}}
+{'vehicle': {'year': '2021', 'model': 'MODEL 3'}}
+{'vehicle': {'year': '2019', 'model': 'MODEL 3'}}
+{'vehicle': {'year': '2022', 'model': 'MODEL Y'}}
+{'vehicle': {'year': '2021', 'model': 'MODEL Y'}}
+{'vehicle': {'year': '2018', 'model': 'MODEL X'}}
+{'vehicle': {'year': '2021', 'model': 'MODEL Y'}}
+{'vehicle': {'year': '2022', 'model': 'MODEL 3'}}
+{'vehicle': {'year': '2020', 'model': 'MODEL Y'}}
+{'vehicle': {'year': '2018', 'model': 'MODEL 3'}}
+{'vehicle': {'year': '2021', 'model': 'MODEL Y'}}
+{'vehicle': {'year': '2018', 'model': 'MODEL 3'}}
+{'vehicle': {'year': '2020', 'model': 'MODEL Y'}}
+{'vehicle': {'year': '2020', 'model': 'MODEL 3'}}
+{'vehicle': {'year': '2022', 'model': 'MODEL Y'}}
+
+#4 Get all vehicles maked by brand ("FORD") in order
+match (brand:Brand)-[:MAKES]->(vehicle:Vehicle)
+where brand.name = '{brand}'
+return vehicle
+order by vehicle.year
+
+{'vehicle': {'year': '2013', 'model': 'C-MAX'}}
+{'vehicle': {'year': '2013', 'model': 'C-MAX'}}
+{'vehicle': {'year': '2014', 'model': 'FUSION'}}
+{'vehicle': {'year': '2014', 'model': 'C-MAX'}}
+{'vehicle': {'year': '2015', 'model': 'FUSION'}}
+{'vehicle': {'year': '2015', 'model': 'FUSION'}}
+{'vehicle': {'year': '2015', 'model': 'FUSION'}}
+{'vehicle': {'year': '2016', 'model': 'FUSION'}}
+{'vehicle': {'year': '2016', 'model': 'FUSION'}}
+{'vehicle': {'year': '2016', 'model': 'FUSION'}}
+{'vehicle': {'year': '2016', 'model': 'FUSION'}}
+(...)
+
+#5 Get the vehicles by country ("king") and brand ("TESLA")
+match (country:Country)-[:HAS]->(brand:Brand)-[:MAKES]->(vehicle:Vehicle)
+where country.name = '{country}' and brand.name = '{brand}'
+return vehicle
+
+{'vehicle': {'year': '2021', 'model': 'MODEL Y'}}
+{'vehicle': {'year': '2022', 'model': 'MODEL 3'}}
+{'vehicle': {'year': '2020', 'model': 'MODEL X'}}
+{'vehicle': {'year': '2017', 'model': 'MODEL S'}}
+{'vehicle': {'year': '2022', 'model': 'MODEL 3'}}
+{'vehicle': {'year': '2018', 'model': 'MODEL 3'}}
+{'vehicle': {'year': '2022', 'model': 'MODEL 3'}}
+{'vehicle': {'year': '2023', 'model': 'MODEL Y'}}
+{'vehicle': {'year': '2021', 'model': 'MODEL Y'}}
+{'vehicle': {'year': '2015', 'model': 'MODEL S'}}
+{'vehicle': {'year': '2020', 'model': 'MODEL Y'}}
+(...)
+
+#6 Get the number of vehicles by country
+match (country:Country)-[:HAS]->(brand:Brand)-[:MAKES]->(vehicle:Vehicle)
+return country.name, count(vehicle) as number_of_vehicles
+order by number_of_vehicles desc
+
+{'country.name': 'King', 'number_of_vehicles': 48132}
+{'country.name': 'Snohomish', 'number_of_vehicles': 12244}
+{'country.name': 'Pierce', 'number_of_vehicles': 5246}
+{'country.name': 'Clark', 'number_of_vehicles': 3901}
+{'country.name': 'Kitsap', 'number_of_vehicles': 3101}
+{'country.name': 'Thurston', 'number_of_vehicles': 2639}
+{'country.name': 'Spokane', 'number_of_vehicles': 1694}
+{'country.name': 'Whatcom', 'number_of_vehicles': 1509}
+{'country.name': 'Skagit', 'number_of_vehicles': 1313}
+{'country.name': 'Island', 'number_of_vehicles': 1274}
+{'country.name': 'Yakima', 'number_of_vehicles': 1220}
+(...)
+
+#7 Get the number of vehicles by brand
+match (brand:Brand)-[:MAKES]->(vehicle:Vehicle)
+return brand.name, count(vehicle) as number_of_vehicles
+order by number_of_vehicles desc
+
+{'brand.name': 'TESLA', 'number_of_vehicles': 276}
+{'brand.name': 'NISSAN', 'number_of_vehicles': 85}
+{'brand.name': 'CHEVROLET', 'number_of_vehicles': 51}
+{'brand.name': 'FORD', 'number_of_vehicles': 33}
+{'brand.name': 'BMW', 'number_of_vehicles': 25}
+{'brand.name': 'KIA', 'number_of_vehicles': 23}
+{'brand.name': 'TOYOTA', 'number_of_vehicles': 22}
+{'brand.name': 'VOLKSWAGEN', 'number_of_vehicles': 12}
+{'brand.name': 'AUDI', 'number_of_vehicles': 8}
+{'brand.name': 'HONDA', 'number_of_vehicles': 8}
+{'brand.name': 'VOLVO', 'number_of_vehicles': 8}
+(...)
+
+#8 Get the number of vehicles by brand and country
+match (country:Country)-[:HAS]->(brand:Brand)-[:MAKES]->(vehicle:Vehicle)
+return country.name, brand.name, count(vehicle) as number_of_vehicles
+order by number_of_vehicles desc
+
+{'country.name': 'King', 'brand.name': 'TESLA', 'number_of_vehicles': 42780}
+{'country.name': 'Snohomish', 'brand.name': 'TESLA', 'number_of_vehicles': 9936}
+{'country.name': 'Pierce', 'brand.name': 'TESLA', 'number_of_vehicles': 4416}
+{'country.name': 'Clark', 'brand.name': 'TESLA', 'number_of_vehicles': 3312}
+{'country.name': 'King', 'brand.name': 'NISSAN', 'number_of_vehicles': 3060}
+{'country.name': 'Kitsap', 'brand.name': 'TESLA', 'number_of_vehicles': 2208}
+{'country.name': 'Thurston', 'brand.name': 'TESLA', 'number_of_vehicles': 2208}
+{'country.name': 'Snohomish', 'brand.name': 'NISSAN', 'number_of_vehicles': 1530}
+{'country.name': 'Spokane', 'brand.name': 'TESLA', 'number_of_vehicles': 1380}
+{'country.name': 'Whatcom', 'brand.name': 'TESLA', 'number_of_vehicles': 1380}
+{'country.name': 'Yakima', 'brand.name': 'TESLA', 'number_of_vehicles': 1104}
+(...)
+
+#9 Get the vehicles that exist in more than one country
+match (vehicle:Vehicle)-[:EXISTS]->(country:Country)
+with vehicle, count(country) as number_of_countries
+where number_of_countries > 1
+return vehicle
+
+{'vehicle': {'year': '2022', 'model': 'RAV4 PRIME'}}
+{'vehicle': {'year': '2013', 'model': 'VOLT'}}
+{'vehicle': {'year': '2011', 'model': 'LEAF'}}
+{'vehicle': {'year': '2017', 'model': 'BOLT EV'}}
+{'vehicle': {'year': '2018', 'model': 'MODEL 3'}}
+{'vehicle': {'year': '2013', 'model': 'LEAF'}}
+{'vehicle': {'year': '2016', 'model': 'LEAF'}}
+{'vehicle': {'year': '2016', 'model': 'SOUL'}}
+{'vehicle': {'year': '2020', 'model': 'MODEL X'}}
+{'vehicle': {'year': '2019', 'model': 'LEAF'}}
+{'vehicle': {'year': '2017', 'model': 'LEAF'}}
+(...)
+
+#10 Get name of the vehicles and the brand
+match (brand:Brand)-[:MAKES]->(vehicle:Vehicle)
+return brand.name as Brand, vehicle.model as Model
+
+{'Brand': 'BMW', 'Model': 'I3'}
+{'Brand': 'BMW', 'Model': 'I3'}
+{'Brand': 'BMW', 'Model': 'I3'}
+{'Brand': 'BMW', 'Model': 'I3'}
+{'Brand': 'BMW', 'Model': '530E'}
+{'Brand': 'BMW', 'Model': 'X5'}
+{'Brand': 'PORSCHE', 'Model': 'TAYCAN'}
+{'Brand': 'PORSCHE', 'Model': 'CAYENNE'}
+{'Brand': 'PORSCHE', 'Model': 'TAYCAN'}
+{'Brand': 'PORSCHE', 'Model': 'TAYCAN'}
+{'Brand': 'PORSCHE', 'Model': 'TAYCAN'}

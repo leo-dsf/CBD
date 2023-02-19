@@ -1,0 +1,42 @@
+* public int countLocalidades()
+
+Número de localidades distintas: 6
+
+* Map<String, Integer> countRestByLocalidade()
+
+Número de restaurantes por localidade:
+ -> Queens - 738
+ -> Staten Island - 158
+ -> Brooklyn - 684
+ -> Manhattan - 1883
+ -> Bronx - 309
+ -> Aveiro - 2
+
+* List<String> getRestWithNameCloserTo(String name)
+
+Nome de restaurantes contendo Park no nome:
+ -> Park Italian Gourment
+ -> Forest Park Golf Course
+ -> Gigino At Wagner Park
+ -> New Parkway Restaurant
+ -> The Park
+ -> Morris Park Pizza
+ -> Central Park Boathouse
+ -> Park Bar
+ -> Sunset Park Diner & Donuts
+ -> Park'S Snack
+ -> Park Plaza Restaurant
+ -> Morris Park Bake Shop
+ -> Dyker Park Bagels
+ -> Park Slope Ale House
+ -> Rego Park Cafe
+ -> Tribeca Park Cafe
+ -> The Hallmark Of Battery Park City- Dining Room
+ -> Parkside Restaurant
+ -> Pizza Park
+ -> Terrace On The Park
+ -> The Park Slope Chipshop
+ -> Nora'S Park Bench Cafe
+ -> New Park Pizzeria & Restaurant
+ -> Park Billiards
+ -> Whiskey Park

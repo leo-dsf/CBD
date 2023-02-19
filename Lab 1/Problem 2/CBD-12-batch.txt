@@ -1,0 +1,19 @@
+lpush people tyson
+lpush people francis
+rpush people fury
+LPOP people
+lrange people 0 -1
+RPOP people
+lrange people 0 -1
+SADD hobbies "box"
+SMEMBERS hobbies
+SADD hobbies "box"
+SMEMBERS hobbies
+SREM hobbies "box"
+HSET person name "conor"
+HGET person name
+HGETALL person
+HSET person age 26
+HGETALL person
+HGET person name
+HGET person age

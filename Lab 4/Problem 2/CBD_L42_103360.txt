@@ -1,0 +1,97 @@
+// NMEC: 103360
+
+#1
+match (actor:Person)-[:ACTED_IN]->(movie:Movie)<-[:DIRECTED]-(actor:Person)
+return distinct actor.name, movie.title
+
+#2
+match (actor:Person)-[:ACTED_IN]->(movie:Movie)
+where movie.released > 2005
+return actor.name
+
+#3
+match (node1)-[relaction]-(node2)
+with node1, node2, count(*) as relactions
+where relactions > 1
+return node1, node2, relactions
+
+#4
+match (actor1:Person)-[review1:REVIEWED]->(movie:Movie)<-[review2:REVIEWED]-(actor2:Person)
+return movie.title as Movie, actor1.name as Actor1, actor2.name as Actor2
+
+#5
+match (actor1:Person)-[:ACTED_IN]->(movie:Movie)<-[:ACTED_IN]-(actor2:Person)
+with actor1, actor2, count(*) as numberMovies
+where numberMovies > 1
+return actor1.name as Actor1, actor2.name as Actor2, numberMovies as Number_Movies
+
+#6
+match (actor:Person)-[:ACTED_IN]->(movie:Movie)
+where movie.title="Apollo 13"
+return avg(movie.released-actor.born) as Average_Age
+
+#7
+match (actor:Person)-[:ACTED_IN]->(movie:Movie)
+return movie.title as Movie, round(avg(movie.released-actor.born),2) as Average_Age order by Average_Age desc limit 10
+
+#8
+match (actor:Person)-[acted:ACTED_IN]->(movie:Movie)
+with actor, movie, avg(movie.released-actor.born) as avg_age
+return actor, movie,avg(movie.released.actor.born) as avg_age order by avg_age asc limit 1
+
+#9
+match (john:Person {name: "John Cusack"}), (demi:Person {name: "Demi Moore"}), short_path=shortestPath((john)-[*]-(demi))
+return short_path
+
+#10
+match (keanu:Person {name: "Keanu Reeves"}), (tom:Person {name: "Tom Cruise"}), short_path=shortestPath((keanu)-[*]-(tom))
+return length(short_path)
+
+#11
+match (jim:Person), (kevin:Person), short_path=shortestPath((jim)-[*]-(kevin))
+where jim.name starts with "Jim" and kevin.name starts with "Kevin"
+return jim.name, kevin.name, length(short_path)
+
+#12
+match (jim:Person {name: "Jim Cash"}), (actor:Person), short_path=shortestPath((jim)-[*..2]-(actor))
+where jim.name <> actor.name
+return actor.name as Actor
+
+#13
+match (kevin:Person {name: "Kevin Bacon"}), (actor:Person), short_path=shortestPath((kevin)-[*]-(actor))
+where kevin.name <> actor.name
+return actor.name as Actor, length(short_path) as Len_Short_Path order by Len_Short_Path desc limit 1
+
+#14
+match (actor1:Person), (actor2:Person), short_path=shortestPath((actor1)-[*]-(actor2))
+where actor1.name <> actor2.name
+return actor1.name as Actor1, actor2.name as Actor2, length(short_path) as Len_Short_Path order by Len_Short_Path desc limit 1
+
+#15
+match (actor1:Person), (actor2:Person), short_path=shortestPath((actor1)-[*]-(actor2))
+where actor1.name <> actor2.name
+return length(short_path), count(*) as Number_Pares
+
+#16
+match (actor1:Person), (actor2:Person), short_path=shortestPath((actor1)-[ACTED_IN*]-(actor2))
+where actor1.name <> actor2.name
+return actor1.name as Actor1, actor2.name as Actor2, avg(length(short_path)) as Avg_Len_Short_Path order by Avg_Len_Short_Path asc limit 10
+
+#17
+match (actor:Person)-[role:ACTED_IN]-(movie:Movie)
+where any(r in role.roles where r starts with "Dr.")
+return actor.name as Actor, role.roles as Roles
+
+#18 Encontre os 10 filmes com mais atores.
+match (actor:Person)-[:ACTED_IN]->(movie:Movie)
+with movie, count(*) as Number_Actors
+return movie.title as Movie, Number_Actors order by Number_Actors desc limit 10
+
+#19 Apresente o número de filmes que cada pessoa escreveu por ordem descrescente.
+match (writer:Person)-[:WROTE]-(movie:Movie)
+with writer, count(*) as Number_Movies
+return writer.name as Writer, Number_Movies order by Number_Movies desc
+
+#20 Apresente o número de filmes de cada ano.
+match (movie:Movie)
+return movie.released as Year, count(*) as Movies

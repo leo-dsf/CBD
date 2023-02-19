@@ -1,0 +1,319 @@
+1. Add users.
+2. List users.
+3. Remove users.
+4. Choose user.
+5. Exit.
+
+Select an option: 1
+Name: James
+
+1. Add users.
+2. List users.
+3. Remove users.
+4. Choose user.
+5. Exit.
+
+Select an option: 1
+Name: Ozzy
+
+1. Add users.
+2. List users.
+3. Remove users.
+4. Choose user.
+5. Exit.
+
+Select an option: 2
+[James, Ozzy]
+
+1. Add users.
+2. List users.
+3. Remove users.
+4. Choose user.
+5. Exit.
+
+Select an option: 1
+Name: Dave
+
+1. Add users.
+2. List users.
+3. Remove users.
+4. Choose user.
+5. Exit.
+
+Select an option: 2
+[Dave, James, Ozzy]
+
+1. Add users.
+2. List users.
+3. Remove users.
+4. Choose user.
+5. Exit.
+
+Select an option: 3
+Name: Dave
+
+1. Add users.
+2. List users.
+3. Remove users.
+4. Choose user.
+5. Exit.
+
+Select an option: 2
+[James, Ozzy]
+
+1. Add users.
+2. List users.
+3. Remove users.
+4. Choose user.
+5. Exit.
+
+Select an option: 4
+Name: Ozzy
+Welcome Ozzy
+
+1. Add post.
+2. List posts.
+3. Remove posts.
+4. Follow user.
+5. List following.
+6. List following posts.
+7. Exit.
+
+Select an option: 1
+Post: Black Sabbath
+
+1. Add post.
+2. List posts.
+3. Remove posts.
+4. Follow user.
+5. List following.
+6. List following posts.
+7. Exit.
+
+Select an option: 1
+Post: Master of Reality
+
+1. Add post.
+2. List posts.
+3. Remove posts.
+4. Follow user.
+5. List following.
+6. List following posts.
+7. Exit.
+
+Select an option: 1
+Post: Paranoid
+
+1. Add post.
+2. List posts.
+3. Remove posts.
+4. Follow user.
+5. List following.
+6. List following posts.
+7. Exit.
+
+Select an option: 1
+Post: 13
+
+1. Add post.
+2. List posts.
+3. Remove posts.
+4. Follow user.
+5. List following.
+6. List following posts.
+7. Exit.
+
+Select an option: 2
+[Black Sabbath, Master of Reality, Paranoid, 13]
+
+1. Add post.
+2. List posts.
+3. Remove posts.
+4. Follow user.
+5. List following.
+6. List following posts.
+7. Exit.
+
+Select an option: 3
+Post: 4
+
+1. Add post.
+2. List posts.
+3. Remove posts.
+4. Follow user.
+5. List following.
+6. List following posts.
+7. Exit.
+
+Select an option: 2
+[Black Sabbath, Master of Reality, Paranoid]
+
+1. Add post.
+2. List posts.
+3. Remove posts.
+4. Follow user.
+5. List following.
+6. List following posts.
+7. Exit.
+
+Select an option: 4
+User: James
+
+1. Add post.
+2. List posts.
+3. Remove posts.
+4. Follow user.
+5. List following.
+6. List following posts.
+7. Exit.
+
+Select an option: 5
+[James]
+
+1. Add post.
+2. List posts.
+3. Remove posts.
+4. Follow user.
+5. List following.
+6. List following posts.
+7. Exit.
+
+Select an option: 7
+
+1. Add users.
+2. List users.
+3. Remove users.
+4. Choose user.
+5. Exit.
+
+Select an option: 4
+Name: James
+Welcome James
+
+1. Add post.
+2. List posts.
+3. Remove posts.
+4. Follow user.
+5. List following.
+6. List following posts.
+7. Exit.
+
+Select an option: 1
+Post: Metallica
+
+1. Add post.
+2. List posts.
+3. Remove posts.
+4. Follow user.
+5. List following.
+6. List following posts.
+7. Exit.
+
+Select an option: 1
+Post: Master of Puppets
+
+1. Add post.
+2. List posts.
+3. Remove posts.
+4. Follow user.
+5. List following.
+6. List following posts.
+7. Exit.
+
+Select an option: 2
+[Metallica, Master of Puppets]
+
+1. Add post.
+2. List posts.
+3. Remove posts.
+4. Follow user.
+5. List following.
+6. List following posts.
+7. Exit.
+
+Select an option: 4
+User: Ozzy
+
+1. Add post.
+2. List posts.
+3. Remove posts.
+4. Follow user.
+5. List following.
+6. List following posts.
+7. Exit.
+
+Select an option: 5
+[Ozzy]
+
+1. Add post.
+2. List posts.
+3. Remove posts.
+4. Follow user.
+5. List following.
+6. List following posts.
+7. Exit.
+
+Select an option: 6
+[Ozzy]
+Name: Ozzy
+[Black Sabbath, Master of Reality, Paranoid]
+
+1. Add post.
+2. List posts.
+3. Remove posts.
+4. Follow user.
+5. List following.
+6. List following posts.
+7. Exit.
+
+Select an option: 7
+
+1. Add users.
+2. List users.
+3. Remove users.
+4. Choose user.
+5. Exit.
+
+Select an option: 1
+Name: Dave
+
+1. Add users.
+2. List users.
+3. Remove users.
+4. Choose user.
+5. Exit.
+
+Select an option: 4
+Name: Ozzy
+Welcome Ozzy
+
+1. Add post.
+2. List posts.
+3. Remove posts.
+4. Follow user.
+5. List following.
+6. List following posts.
+7. Exit.
+
+Select an option: 6
+[James]
+Name: Dave
+You don't follow this user!
+
+1. Add post.
+2. List posts.
+3. Remove posts.
+4. Follow user.
+5. List following.
+6. List following posts.
+7. Exit.
+
+Select an option: 7
+
+1. Add users.
+2. List users.
+3. Remove users.
+4. Choose user.
+5. Exit.
+
+Select an option: 5

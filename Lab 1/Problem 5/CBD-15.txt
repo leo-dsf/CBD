@@ -1,0 +1,18 @@
+# Lab 1 - Bases de Dados Chave-Valor
+
+## Estruturas de dados utilizadas
+1. **Set**
+2. **List**
+
+## Funções usadas da biblioteca Jedis
+1. **sadd(_key_, _value_)**
+2. **srem(_key_, _value_)**
+3. **rpush(_key_, _value_)**
+4. **lrem(_key_, _value_)**
+5. **del(_key_)**
+6. **sismember(_key_, _value_)**
+7. **smembers(_key_, _value_)**
+8. **lrange(_key_, _initial-index_, _last-index_)**
+
+## Documentação
+* [Jedis 4.2.0](https://www.javadoc.io/doc/redis.clients/jedis/4.2.0/redis/clients/jedis/Jedis.html)

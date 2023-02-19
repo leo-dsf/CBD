@@ -1,0 +1,26 @@
+quit
+SET name Leo
+GET name
+SET age 20
+GET age
+quit
+SET name Leo
+GET name
+SET age 20
+GET age
+DEL age
+GET age
+EXISTS nme
+EXISTS name
+KEYS *
+flushall
+KEYS *
+set name leo
+get name
+clear
+ttl name
+expire name 10
+ttl name
+setex name 10 leo
+ttl name
+clear

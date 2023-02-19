@@ -1,0 +1,51 @@
+// NMEC: 103360
+
+#Loading the git_selection.csv file
+load csv with headers from "file:///git_selection.csv" as file
+merge (member:Member{id:file.svn_id, name:file.real_name})
+merge (project:Project{name:file.project_name})
+create (member)-[:CONTRIBUTES{role:file.role_on_project}]->(project)
+
+#1
+match (member:Member)
+return distinct member
+
+#2
+match (member:Member)
+return distinct member.name as User_Name
+
+#3
+match (member:Member)-[contributes:CONTRIBUTES]->(project:Project)
+with contributes, project, count(member) as Total_Members
+where Total_Members >= 1 and contributes.role <> "NA"
+return project
+
+#4
+match (member:Member)-[contributes:CONTRIBUTES]->(project:Project)
+with member, contributes, count(project) as Total_Project
+where contributes.role <> "NA"
+return member.name as User, Total_Project
+
+#5
+match (member:Member)-[contributes:CONTRIBUTES]->(project:Project)
+with member, contributes, count(project) as Total_Project
+where contributes.role <> "NA"
+return member.name as User, Total_Project order by Total_Project desc
+
+#6
+match (member:Member)-[contributes:CONTRIBUTES]->(project:Project)
+return project.name as Project, count(member) as Total_Members
+
+#7
+match (member:Member)-[contributes:CONTRIBUTES]->(project:Project)
+where contributes.role="Committer"
+return project.name as Project, count(member) as Total_Members
+
+#8
+match (atm:Member{id:"atm"})-[:CONTRIBUTES]->(project:Project)<-[:CONTRIBUTES]-(member:Member)
+return atm.name as Atm_User, member.name as User, project.name as Project
+
+#9
+match (atm:Member{id:"atm"})-[contributes1:CONTRIBUTES]->(project:Project)<-[contributes2:CONTRIBUTES]-(member:Member)
+where contributes1.role="PMC" and contributes2.role="Committer"
+return atm.name as Atm_User, member.name as User, project.name as Project

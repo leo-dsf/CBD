@@ -1,0 +1,12 @@
+{"video_id": 1, "author": "scarpente", "event_timestamp": "2022-11-19 17:21:58.923Z", "moment": 30, "type": "PAUSE"}
+{"video_id": 1, "author": "scarpente", "event_timestamp": "2022-11-19 17:22:03.525Z", "moment": 30, "type": "PLAY"}
+{"video_id": 1, "author": "scarpente", "event_timestamp": "2022-11-19 17:22:10.006Z", "moment": 60, "type": "PAUSE"}
+{"video_id": 1, "author": "scarpente", "event_timestamp": "2022-11-19 17:22:14.393Z", "moment": 60, "type": "PLAY"}
+{"video_id": 1, "author": "scarpente", "event_timestamp": "2022-11-19 17:22:19.656Z", "moment": 300, "type": "STOP"}
+{"video_id": 1, "author": "scarpenter", "event_timestamp": "2022-11-19 17:21:54.007Z", "moment": 0, "type": "PLAY"}
+{"video_id": 2, "author": "acunningham", "event_timestamp": "2022-11-19 17:22:25.242Z", "moment": 0, "type": "PLAY"}
+{"video_id": 2, "author": "acunningham", "event_timestamp": "2022-11-19 17:22:30.307Z", "moment": 30, "type": "PAUSE"}
+{"video_id": 2, "author": "acunningham", "event_timestamp": "2022-11-19 17:22:35.423Z", "moment": 30, "type": "PLAY"}
+{"video_id": 2, "author": "acunningham", "event_timestamp": "2022-11-19 17:22:40.422Z", "moment": 60, "type": "PAUSE"}
+{"video_id": 2, "author": "acunningham", "event_timestamp": "2022-11-19 17:22:45.277Z", "moment": 60, "type": "PLAY"}
+{"video_id": 2, "author": "acunningham", "event_timestamp": "2022-11-19 17:22:50.123Z", "moment": 300, "type": "STOP"}

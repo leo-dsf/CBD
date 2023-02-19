@@ -1,0 +1,229 @@
+Cria a collection **_users_** se não existir e insere um documento. 
+- **Nota:** MongoDB cria automaticamente um id único para cada documento.
+```console
+mongodb> db.users.insertOne({name: "James Hetfield"})
+{
+  acknowledged: true,
+  insertedId: ObjectId("6342e4d1a1bfdd2e7251fcc5")
+}
+mongodb> db.users.insertOne({name: "Dave Mustaine", age: 61, address: {country: "USA", state: "California"}, band: "Megadeth", hobbies: ["Singing", "Playing guitar"]})
+{
+  acknowledged: true,
+  insertedId: ObjectId("6342e4eaa1bfdd2e7251fcc6")
+}
+```
+
+Com o seguinte comando conseguimos ver o couteúdo da collection **_users_**.
+```console
+mongodb> db.users.find()
+[
+  { _id: ObjectId("6342e4d1a1bfdd2e7251fcc5"), name: 'James Hetfield' },
+  {
+    _id: ObjectId("6342e4eaa1bfdd2e7251fcc6"),
+    name: 'Dave Mustaine',
+    age: 61,
+    address: { country: 'USA', state: 'California' },
+    band: 'Megadeth',
+    hobbies: [ 'Singing', 'Playing guitar' ]
+  }
+]
+```
+
+Conseguimos inserir vários documentos de uma só vez.
+```console
+mongodb> db.users.insertMany([{name: "Ozzy Osbourne", age: 73, band: "Black Sabbath"}, {name: "Joe Duplantier", age: 45, band: "Gojira"}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId("6342e57da1bfdd2e7251fcc7"),
+    '1': ObjectId("6342e57da1bfdd2e7251fcc8")
+  }
+}
+mongodb> db.users.find()
+[
+  { _id: ObjectId("6342e4d1a1bfdd2e7251fcc5"), name: 'James Hetfield' },
+  {
+    _id: ObjectId("6342e4eaa1bfdd2e7251fcc6"),
+    name: 'Dave Mustaine',
+    age: 61,
+    address: { country: 'USA', state: 'California' },
+    band: 'Megadeth',
+    hobbies: [ 'Singing', 'Playing guitar' ]
+  },
+  {
+    _id: ObjectId("6342e57da1bfdd2e7251fcc7"),
+    name: 'Ozzy Osbourne',
+    age: 73,
+    band: 'Black Sabbath'
+  },
+  {
+    _id: ObjectId("6342e57da1bfdd2e7251fcc8"),
+    name: 'Joe Duplantier',
+    age: 45,
+    band: 'Gojira'
+  }
+]
+```
+
+Conseguimos limitar o número de documentos que queremos ver de uma collection. Neste caso vemos só os 2 primeiros documentos.
+```console
+mongodb> db.users.find().limit(2)
+[
+  { _id: ObjectId("6342e4d1a1bfdd2e7251fcc5"), name: 'James Hetfield' },
+  {
+    _id: ObjectId("6342e4eaa1bfdd2e7251fcc6"),
+    name: 'Dave Mustaine',
+    age: 61,
+    address: { country: 'USA', state: 'California' },
+    band: 'Megadeth',
+    hobbies: [ 'Singing', 'Playing guitar' ]
+  }
+]
+```
+
+Ver 2 documentos por ordem alfabética.
+```console
+mongodb> db.users.find().sort({name: 1}).limit(2)
+[
+  {
+    _id: ObjectId("6342e4eaa1bfdd2e7251fcc6"),
+    name: 'Dave Mustaine',
+    age: 61,
+    address: { country: 'USA', state: 'California' },
+    band: 'Megadeth',
+    hobbies: [ 'Singing', 'Playing guitar' ]
+  },
+  { _id: ObjectId("6342e4d1a1bfdd2e7251fcc5"), name: 'James Hetfield' }
+]
+```
+
+Ver 2 documentos por ordem alfabética invertida.
+```console
+mongodb> db.users.find().sort({name: -1}).limit(2)
+[
+  {
+    _id: ObjectId("6342e57da1bfdd2e7251fcc7"),
+    name: 'Ozzy Osbourne',
+    age: 73,
+    band: 'Black Sabbath'
+  },
+  {
+    _id: ObjectId("6342e57da1bfdd2e7251fcc8"),
+    name: 'Joe Duplantier',
+    age: 45,
+    band: 'Gojira'
+  }
+]
+```
+
+Ver 2 documentos por idade crescente e se tiverem a mesma idade por ordem alfabética invertida.
+```console
+mongodb> db.users.find().sort({age: 1, name: -1}).limit(2)
+[
+  { _id: ObjectId("6342e4d1a1bfdd2e7251fcc5"), name: 'James Hetfield' },
+  {
+    _id: ObjectId("6342e57da1bfdd2e7251fcc8"),
+    name: 'Joe Duplantier',
+    age: 45,
+    band: 'Gojira'
+  }
+]
+```
+
+Ver 2 documentos saltando o 1 documento.
+```console
+mongodb> db.users.find().skip(1).limit(2)
+[
+  {
+    _id: ObjectId("6342e4eaa1bfdd2e7251fcc6"),
+    name: 'Dave Mustaine',
+    age: 61,
+    address: { country: 'USA', state: 'California' },
+    band: 'Megadeth',
+    hobbies: [ 'Singing', 'Playing guitar' ]
+  },
+  {
+    _id: ObjectId("6342e57da1bfdd2e7251fcc7"),
+    name: 'Ozzy Osbourne',
+    age: 73,
+    band: 'Black Sabbath'
+  }
+]
+```
+
+Ver os documentos que têm o seguinte nome.
+```console
+mongodb> db.users.find({name: "James Hetfield"})
+[
+  { _id: ObjectId("6342e4d1a1bfdd2e7251fcc5"), name: 'James Hetfield' }
+]
+```
+
+Ver os documentos que têm a seguinte idade.
+```console
+mongodb> db.users.find({age: 61})
+[
+  {
+    _id: ObjectId("6342e4eaa1bfdd2e7251fcc6"),
+    name: 'Dave Mustaine',
+    age: 61,
+    address: { country: 'USA', state: 'California' },
+    band: 'Megadeth',
+    hobbies: [ 'Singing', 'Playing guitar' ]
+  }
+]
+```
+
+Ver os documentos que têm o seguinte nome e mostrar apenas o nome e a idade.
+```console
+mongodb> db.users.find({name: "Dave Mustaine"}, {name: 1, age: 1})
+[
+  {
+    _id: ObjectId("6342e4eaa1bfdd2e7251fcc6"),
+    name: 'Dave Mustaine',
+    age: 61
+  }
+]
+```
+
+Sem mostrar o id.
+```console
+mongodb> db.users.find({name: "Dave Mustaine"}, {name: 1, age: 1, _id: 0})
+[ { name: 'Dave Mustaine', age: 61 } ]
+mongodb> db.users.find({name: "Dave Mustaine"}, {_id: 0})
+[
+  {
+    name: 'Dave Mustaine',
+    age: 61,
+    address: { country: 'USA', state: 'California' },
+    band: 'Megadeth',
+    hobbies: [ 'Singing', 'Playing guitar' ]
+  }
+]
+```
+
+Adicionamos o parâmetro idade ao documento que não tinha.
+```console
+mongodb> db.users.updateOne({name: "James Hetfield"}, {$set: {age: 59}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+mongodb> db.users.find({name: "James Hetfield"})
+[
+  {
+    _id: ObjectId("63430222a1bfdd2e7251fcc9"),
+    name: 'James Hetfield',
+    age: 59
+  }
+]
+```
+
+Removemos o seguinte documento.
+```console
+mongodb> db.users.deleteOne({name: "James Hetfield"})
+{ acknowledged: true, deletedCount: 1 }
+```
